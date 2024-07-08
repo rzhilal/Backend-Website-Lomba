@@ -1,11 +1,23 @@
-import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UseGuards,
+  ValidationPipe,
+} from '@nestjs/common';
 import { SignUpUserDto } from './dto/signup-user.dto';
+import { UsersService } from './users.service';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('users')
 export class UsersController {
+  constructor(private readonly usersService: UsersService) {}
+
+  @UseGuards(AuthGuard)
   @Get()
-  findAll() {
-    return [];
+  async findAll() {
+    return await this.usersService.findAll();
   }
 
   @Post()

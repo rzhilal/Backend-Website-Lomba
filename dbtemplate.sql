@@ -47,25 +47,19 @@ CREATE TABLE `lomba` (
   `id_lomba` char(36) NOT NULL,
   `id_users` char(36) NOT NULL,
   `nama_lomba` varchar(100) NOT NULL,
-  `tanggal_akhir` date NOT NULL,
+  `deskripsi` varchar(2083) NOT NULL,
+  `tanggal_pendaftaran` date NOT NULL,
+  `tanggal_akhir_pendaftaran` date NOT NULL,
   `penyelenggara_lomba` varchar(255) NOT NULL,
   `link_pendaftaran_lomba` varchar(2083) NOT NULL,
   `link_narahubung` varchar(2083) NOT NULL,
   `id_kategori` char(36) NOT NULL,
-  `survei` varchar(2083) NOT NULL,
   `tingkat_perlombaan` varchar(100) NOT NULL,
   `biaya_pendaftaran` int(11) DEFAULT 0,
   `image_lomba` varchar(255) NOT NULL,
   `views` int(11) DEFAULT 0,
   `is_active` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `lomba`
---
-
-INSERT INTO `lomba` (`id_lomba`, `id_users`, `nama_lomba`, `tanggal_akhir`, `penyelenggara_lomba`, `link_pendaftaran_lomba`, `link_narahubung`, `id_kategori`, `survei`, `tingkat_perlombaan`, `biaya_pendaftaran`, `image_lomba`, `views`, `is_active`) VALUES
-('617872ec-2e59-11ef-809b-d843ae2f8e4a', 'd6a3a319-ecfc-4517-a7a6-7aed693a0cae', 'Lomba Mewarnai', '2024-06-30', 'Puri Bunda Hospital', 'https://www.google.com', 'wa.me/628987928615', 'b5f1f856-2e58-11ef-809b-d843ae2f8e4a', '', 'PAUD/TK', 15000, 'image/1718145919440.jpg', 550, 1);
 
 -- --------------------------------------------------------
 
@@ -94,8 +88,8 @@ CREATE TABLE `role` (
 --
 
 INSERT INTO `role` (`id_role`, `nama_role`) VALUES
-(1, 'user'),
-(2, 'admin');
+(1, 'USER'),
+(2, 'ADMIN');
 
 -- --------------------------------------------------------
 
@@ -105,6 +99,7 @@ INSERT INTO `role` (`id_role`, `nama_role`) VALUES
 
 CREATE TABLE `users` (
   `id_users` char(36) NOT NULL,
+  `id_role` int(11) NOT NULL,
   `email` varchar(255) DEFAULT NULL,
   `username` varchar(50) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
@@ -112,17 +107,8 @@ CREATE TABLE `users` (
   `jenis_kelamin` char(1) DEFAULT NULL,
   `nomor_telepon` varchar(15) DEFAULT NULL,
   `alamat` varchar(2083) NOT NULL,
-  `tanggal_lahir` varchar(80) NOT NULL,
-  `id_role` int(11) NOT NULL
+  `tanggal_lahir` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id_users`, `email`, `username`, `password`, `nama_lengkap`, `jenis_kelamin`, `nomor_telepon`, `alamat`, `tanggal_lahir`, `id_role`) VALUES
-('55d02041-a540-4792-a207-ae86eb22cee2', 'rzqhilal@gmail.com', 'rzqhilal', '$2b$10$rP2UzKgafDvIoL4e./9u2u1h5K1VTId4KLySDnXuhs5wcMyvV0c7.', 'Rizq Hilal Rifaasya', 'L', '081313583029', '', '', 1),
-('d6a3a319-ecfc-4517-a7a6-7aed693a0cae', 'zhrtlmrdyh@gmail.com', 'zhrtlmrdyh', '$2b$10$pA8TL1y1HT4KhLmnswgvZ.lR7tNXB18eJS2pzwjZyo0wE6sq0bXMS', 'Zahratul Mardiyah', 'P', '081313583029', '', '', 1);
 
 --
 -- Indexes for dumped tables
