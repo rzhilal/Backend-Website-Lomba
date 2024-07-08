@@ -4,13 +4,16 @@ import {
   Table,
   DataType,
   PrimaryKey,
+  Default,
 } from 'sequelize-typescript';
+import { v4 as uuidv4 } from 'uuid';
 
 @Table({
   timestamps: false,
 })
 export class User extends Model<User> {
   @PrimaryKey
+  @Default(uuidv4)
   @Column({
     type: DataType.STRING(36),
     allowNull: false,

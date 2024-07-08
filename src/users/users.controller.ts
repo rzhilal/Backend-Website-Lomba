@@ -6,7 +6,6 @@ import {
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
-import { SignUpUserDto } from './dto/signup-user.dto';
 import { UsersService } from './users.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 
@@ -26,7 +25,7 @@ export class UsersController {
   }
 
   @Post('/sign-up')
-  signUp(@Body(ValidationPipe) signUpUserDto: SignUpUserDto) {
+  signUp(@Body(ValidationPipe) signUpUserDto: any) {
     return signUpUserDto;
   }
 }
