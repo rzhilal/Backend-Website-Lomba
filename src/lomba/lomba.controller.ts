@@ -47,7 +47,6 @@ export class LombaController {
     // Mendapatkan userId dan role dari payload JWT yang disimpan dalam request.user oleh AuthGuard
     const userId = request['user'].id_users;
     const userRole = request['user'].id_role;
-
     try {
       const lomba = await this.lombaService.toggleIsActive(
         id,

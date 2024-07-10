@@ -89,7 +89,7 @@ export class LombaService {
   async toggleIsActive(
     id: string,
     userId: string,
-    userRole: string,
+    userRole: number,
   ): Promise<Lomba> {
     // Cari entri Lomba berdasarkan ID
     const dataLomba = await this.lombaRepository.findByPk(id);
@@ -100,7 +100,7 @@ export class LombaService {
     }
 
     // Admin dapat melakukan operasi tanpa batasan
-    if (userRole === 'admin') {
+    if (userRole === 2) {
       // Toggle nilai is_active
       dataLomba.is_active = !dataLomba.is_active;
 
