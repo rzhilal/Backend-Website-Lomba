@@ -8,6 +8,8 @@ import { AuthModule } from './auth/auth.module';
 import { AuthorizationModule } from './authorization/authorization.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './authorization/roles/roles.guard';
+import { KategoriModule } from './kategori/kategori.module';
+import { LombaModule } from './lomba/lomba.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { RolesGuard } from './authorization/roles/roles.guard';
     DatabaseModule,
     AuthModule,
     AuthorizationModule,
+    KategoriModule,
+    LombaModule,
   ],
   controllers: [AppController],
   providers: [
