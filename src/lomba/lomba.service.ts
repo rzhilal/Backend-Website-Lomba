@@ -65,6 +65,8 @@ export class LombaService {
         if (!dataLomba) {
           throw new NotFoundException(`Lomba with id ${id} not found`);
         }
+        dataLomba.views = (dataLomba.views || 0) + 1;
+        await dataLomba.save({ transaction });
 
         return dataLomba;
       },
