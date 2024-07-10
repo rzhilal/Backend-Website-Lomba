@@ -6,11 +6,16 @@ import {
   Patch,
   Param,
   Query,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { LombaService } from './lomba.service';
 import { CreateLombaDto } from './dto/create-lomba.dto';
 import { UpdateLombaDto } from './dto/update-lomba.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
+import { RolesGuard } from 'src/authorization/roles/roles.guard';
 
+@UseGuards(AuthGuard, RolesGuard)
 @Controller('lomba')
 export class LombaController {
   constructor(private readonly lombaService: LombaService) {}
@@ -35,8 +40,23 @@ export class LombaController {
     return this.lombaService.update(id, updateLombaDto);
   }
 
+  // Endpoint untuk mengaktifkan/menonaktifkan Lomba
   @Patch(':id/toggle-active')
-  toggleIsActive(@Param('id') id: string) {
-    return this.lombaService.toggleIsActive(id);
+  @UseGuards(AuthGuard) // Menggunakan AuthGuard untuk memastikan pengguna terautentikasi
+  async toggleIsActive(@Param('id') id: string, @Req() request: Request) {
+    // Mendapatkan userId dan role dari payload JWT yang disimpan dalam request.user oleh AuthGuard
+    const userId = request['user'].id_users;
+    const userRole = request['user'].id_role;
+
+    try {
+      const lomba = await this.lombaService.toggleIsActive(
+        id,
+        userId,
+        userRole,
+      );
+      return { message: 'Lomba status toggled successfully', lomba };
+    } catch (error) {
+      throw error;
+    }
   }
 }

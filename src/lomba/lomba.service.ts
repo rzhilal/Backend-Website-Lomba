@@ -1,4 +1,9 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreateLombaDto } from './dto/create-lomba.dto';
 import { UpdateLombaDto } from './dto/update-lomba.dto';
 import { KategoriService } from 'src/kategori/kategori.service';
@@ -79,14 +84,36 @@ export class LombaService {
     return await dataLomba.update(updateLombaDto);
   }
 
-  // Fungsi untuk toggle is_active
-  async toggleIsActive(id: string): Promise<Lomba> {
+  async toggleIsActive(
+    id: string,
+    userId: string,
+    userRole: string,
+  ): Promise<Lomba> {
     // Cari entri Lomba berdasarkan ID
     const dataLomba = await this.lombaRepository.findByPk(id);
 
     // Jika tidak ditemukan, lemparkan NotFoundException
     if (!dataLomba) {
       throw new NotFoundException('Lomba with given id not found');
+    }
+
+    // Admin dapat melakukan operasi tanpa batasan
+    if (userRole === 'admin') {
+      // Toggle nilai is_active
+      dataLomba.is_active = !dataLomba.is_active;
+
+      // Simpan perubahan
+      await dataLomba.save();
+
+      // Kembalikan entri yang telah diperbarui
+      return dataLomba;
+    }
+
+    // Verifikasi bahwa pengguna yang melakukan aksi adalah pemilik Lomba
+    if (dataLomba.id_users !== userId) {
+      throw new UnauthorizedException(
+        'You are not authorized to perform this action',
+      );
     }
 
     // Toggle nilai is_active

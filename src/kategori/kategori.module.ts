@@ -6,5 +6,6 @@ import { kategoriProviders } from './kategori.providers';
 @Module({
   controllers: [KategoriController],
   providers: [KategoriService, ...kategoriProviders],
+  exports: [KategoriService],
 })
 export class KategoriModule {}

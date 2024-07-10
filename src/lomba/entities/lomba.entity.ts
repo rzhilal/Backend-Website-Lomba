@@ -51,13 +51,13 @@ export class Lomba extends Model<Lomba> {
     type: DataType.DATE,
     allowNull: false,
   })
-  tanggal_pendaftaran: Date;
+  tanggal_pendaftaran: string;
 
   @Column({
     type: DataType.DATE,
     allowNull: false,
   })
-  tanggal_akhir_pendaftaran: Date;
+  tanggal_akhir_pendaftaran: string;
 
   @Column({
     type: DataType.STRING(255),

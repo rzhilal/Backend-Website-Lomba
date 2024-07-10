@@ -1,7 +1,6 @@
 import {
   IsString,
   IsNotEmpty,
-  IsDate,
   IsUrl,
   IsOptional,
   IsInt,
@@ -21,13 +20,11 @@ export class CreateLombaDto {
   @IsNotEmpty()
   deskripsi: string;
 
-  @IsDate()
   @IsNotEmpty()
-  tanggal_pendaftaran: Date;
+  tanggal_pendaftaran: string;
 
-  @IsDate()
   @IsNotEmpty()
-  tanggal_akhir_pendaftaran: Date;
+  tanggal_akhir_pendaftaran: string;
 
   @IsString()
   @IsNotEmpty()

@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { LombaService } from './lomba.service';
 import { LombaController } from './lomba.controller';
 import { lombaProviders } from './lomba.providers';
-import { KategoriService } from 'src/kategori/kategori.service';
-import { UsersService } from 'src/users/users.service';
+import { KategoriModule } from 'src/kategori/kategori.module';
+import { UsersModule } from 'src/users/users.module';
 
 @Module({
-  imports: [KategoriService, UsersService],
+  imports: [KategoriModule, UsersModule],
   controllers: [LombaController],
   providers: [LombaService, ...lombaProviders],
 })
